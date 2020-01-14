@@ -488,7 +488,7 @@ if [ -z $ZSH_LOADED ]; then
             rg "Host " $HOME/.ssh/config | awk '{print $2}' | rg -v "\*"
         }
         alias sshls=sshls
-        alias sshinit="rm -rf $HOME/.ssh/known_hosts;rm -rf $HOME/.ssh/master_kpango@192.168.2.*;chmod 600 $HOME/.ssh/config"
+        # alias sshinit="rm -rf $HOME/.ssh/known_hosts;rm -rf $HOME/.ssh/master_kpango@192.168.2.*;chmod 600 $HOME/.ssh/config"
     fi
 
     if type rails >/dev/null 2>&1; then
@@ -721,8 +721,8 @@ if [ -z $ZSH_LOADED ]; then
     fi
     if type yay >/dev/null 2>&1; then
         archback() {
-            pacman -Qqen > $HOME/go/src/github.com/kpango/dotfiles/arch/pkg.list
-            pacman -Qqem > $HOME/go/src/github.com/kpango/dotfiles/arch/aur.list
+            pacman -Qqen > $HOME/go/src/github.com/vankichi/dotfiles/arch/pkg.list
+            pacman -Qqem > $HOME/go/src/github.com/vankichi/dotfiles/arch/aur.list
         }
         alias archback=archback
         archup() {
@@ -748,3 +748,4 @@ if [ -z $ZSH_LOADED ]; then
     fi
     export ZSH_LOADED=1;
 fi
+[ -f /Users/kyukawa/.aliases ] && source /Users/kyukawa/.aliases

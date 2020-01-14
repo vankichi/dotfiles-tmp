@@ -1,5 +1,5 @@
 #!/usr/local/bin/zsh
-rcpath="$HOME/go/src/github.com/kpango/dotfiles"
+rcpath="$HOME/go/src/github.com/vankichi/dotfiles"
 
 dockerrm(){
     docker container stop $(docker container ls -aq)
