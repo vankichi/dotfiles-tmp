@@ -81,8 +81,8 @@
 [gpg]
     program = gpg
 [user]
-    name = kpango
-    email = "i.can.feel.gravity@gmail.com"
-    signingkey = "F1138C4D7C781619"
+    name = kyukawa
+    email = "kyukawa315@gmail.com"
+    # signingkey = "F1138C4D7C781619"
 [ghq]
     root = ~/go/src
