@@ -25,40 +25,6 @@ link:
 	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))tmux-kube $(HOME)/.tmux-kube
 	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))tmux.new-session $(HOME)/.tmux.new-session
 
-arch_link: link
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/gitconfig $(HOME)/.gitconfig
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/xinitrc $(HOME)/.xinitrc
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/Xmodmap $(HOME)/.Xmodmap
-	mkdir -p ${HOME}/.config/sway
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/sway.conf $(HOME)/.config/sway/config
-	mkdir -p ${HOME}/.config/i3
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/i3.conf $(HOME)/.config/i3/config
-	mkdir -p ${HOME}/.config/i3status
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/i3status.conf $(HOME)/.config/i3status/config
-	mkdir -p ${HOME}/.config/rofi
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/rofi/sidebar.rasi $(HOME)/.config/rofi/sidebar.rasi
-	mkdir -p ${HOME}/.config/compton
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/compton.conf $(HOME)/.config/compton/compton.conf
-	mkdir -p ${HOME}/.config/fcitx/conf
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/fcitx-classic-ui.config $(HOME)/.config/fcitx/conf/fcitx-classic-ui.config
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/ranger $(HOME)/.config/ranger
-	ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/Xdefaults $(HOME)/.Xdefaults
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/modules-load.d/bbr.conf /etc/modules-load.d/bbr.conf
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))network/sysctl.conf /etc/sysctl.conf
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/resolv.conf /etc/resolv.conf
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/pulseaudio-bluetooth.conf /etc/dbus-1/system.d/pulseaudio-bluetooth.conf
-	mkdir -p /etc/docker
-	mkdir -p ${HOME}/.docker
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))dockers/daemon.json /etc/docker/daemon.json
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))dockers/daemon.json $(HOME)/.docker/daemon.json
-	sudo ln -sfv $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/lightdm.conf /etc/lightdm/lightdm.conf
-	sudo cp $(dir $(abspath $(lastword $(MAKEFILE_LIST))))arch/pulseaudio.service /etc/systemd/system/pulseaudio.service
-	sudo systemctl daemon-reload
-	sudo systemctl enable pulseaudio
-	sudo systemctl start pulseaudio
-	sudo systemctl status pulseaudio
-	sudo journalctl | grep pulseaudio
-
 clean:
 	sed -e "/\[\ \-f\ \$HOME\/\.aliases\ \]\ \&\&\ source\ \$HOME\/\.aliases/d" ~/.bashrc
 	sed -e "/\[\ \-f\ \$HOME\/\.aliases\ \]\ \&\&\ source\ \$HOME\/\.aliases/d" ~/.zshrc
@@ -71,79 +37,80 @@ bash: link
 	[ -f $(HOME)/.bashrc ] && echo "[ -f $$HOME/.aliases ] && source $$HOME/.aliases" >> $(HOME)/.bashrc
 
 build:
-	docker build -t kpango/dev:latest .
+	docker build -t vankichi/dev:latest .
 
 docker_build:
-	docker build --squash -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
+	docker build -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
+	#docker build --squash -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
 
 docker_push:
 	docker push ${IMAGE_NAME}:latest
 
 prod_build:
-	@make DOCKERFILE="./Dockerfile" IMAGE_NAME="kpango/dev" docker_build
+	@make DOCKERFILE="./Dockerfile" IMAGE_NAME="vankichi/dev" docker_build
 
 build_go:
-	@make DOCKERFILE="./dockers/go.Dockerfile" IMAGE_NAME="kpango/go" docker_build
+	@make DOCKERFILE="./dockers/go.Dockerfile" IMAGE_NAME="vankichi/go" docker_build
 
 build_rust:
-	@make DOCKERFILE="./dockers/rust.Dockerfile" IMAGE_NAME="kpango/rust" docker_build
+	@make DOCKERFILE="./dockers/rust.Dockerfile" IMAGE_NAME="vankichi/rust" docker_build
 
 build_nim:
-	@make DOCKERFILE="./dockers/nim.Dockerfile" IMAGE_NAME="kpango/nim" docker_build
+	@make DOCKERFILE="./dockers/nim.Dockerfile" IMAGE_NAME="vankichi/nim" docker_build
 
 build_dart:
-	@make DOCKERFILE="./dockers/dart.Dockerfile" IMAGE_NAME="kpango/dart" docker_build
+	@make DOCKERFILE="./dockers/dart.Dockerfile" IMAGE_NAME="vankichi/dart" docker_build
 
 build_docker:
-	@make DOCKERFILE="./dockers/docker.Dockerfile" IMAGE_NAME="kpango/docker" docker_build
+	@make DOCKERFILE="./dockers/docker.Dockerfile" IMAGE_NAME="vankichi/docker" docker_build
 
 build_base:
-	@make DOCKERFILE="./dockers/base.Dockerfile" IMAGE_NAME="kpango/dev-base" docker_build
+	@make DOCKERFILE="./dockers/base.Dockerfile" IMAGE_NAME="vankichi/dev-base" docker_build
 
 build_env:
-	@make DOCKERFILE="./dockers/env.Dockerfile" IMAGE_NAME="kpango/env" docker_build
+	@make DOCKERFILE="./dockers/env.Dockerfile" IMAGE_NAME="vankichi/env" docker_build
 
 build_gcloud:
-	@make DOCKERFILE="./dockers/gcloud.Dockerfile" IMAGE_NAME="kpango/gcloud" docker_build
+	@make DOCKERFILE="./dockers/gcloud.Dockerfile" IMAGE_NAME="vankichi/gcloud" docker_build
 
 build_k8s:
-	@make DOCKERFILE="./dockers/k8s.Dockerfile" IMAGE_NAME="kpango/kube" docker_build
+	@make DOCKERFILE="./dockers/k8s.Dockerfile" IMAGE_NAME="vankichi/kube" docker_build
 
 build_glibc:
-	@make DOCKERFILE="./dockers/glibc.Dockerfile" IMAGE_NAME="kpango/glibc" docker_build
+	@make DOCKERFILE="./dockers/glibc.Dockerfile" IMAGE_NAME="vankichi/glibc" docker_build
 
 prod_push:
-	@make IMAGE_NAME="kpango/dev" docker_push
+	@make IMAGE_NAME="vankichi/dev" docker_push
 
 push_go:
-	@make IMAGE_NAME="kpango/go" docker_push
+	@make IMAGE_NAME="vankichi/go" docker_push
 
 push_rust:
-	@make IMAGE_NAME="kpango/rust" docker_push
+	@make IMAGE_NAME="vankichi/rust" docker_push
 
 push_nim:
-	@make IMAGE_NAME="kpango/nim" docker_push
+	@make IMAGE_NAME="vankichi/nim" docker_push
 
 push_dart:
-	@make IMAGE_NAME="kpango/dart" docker_push
+	@make IMAGE_NAME="vankichi/dart" docker_push
 
 push_docker:
-	@make IMAGE_NAME="kpango/docker" docker_push
+	@make IMAGE_NAME="vankichi/docker" docker_push
 
 push_base:
-	@make IMAGE_NAME="kpango/dev-base" docker_push
+	@make IMAGE_NAME="vankichi/dev-base" docker_push
 
 push_env:
-	@make IMAGE_NAME="kpango/env" docker_push
+	@make IMAGE_NAME="vankichi/env" docker_push
 
 push_gcloud:
-	@make IMAGE_NAME="kpango/gcloud" docker_push
+	@make IMAGE_NAME="vankichi/gcloud" docker_push
 
 push_k8s:
-	@make IMAGE_NAME="kpango/kube" docker_push
+	@make IMAGE_NAME="vankichi/kube" docker_push
 
 push_glibc:
-	@make IMAGE_NAME="kpango/glibc" docker_push
+	@make IMAGE_NAME="vankichi/glibc" docker_push
 
 build_all: \
 	build_base \
@@ -175,16 +142,16 @@ push_all: \
 
 profile:
 	rm -f analyze.txt
-	type dlayer >/dev/null 2>&1 && docker save kpango/dev:latest | dlayer >> analyze.txt
+	type dlayer >/dev/null 2>&1 && docker save vankichi/dev:latest | dlayer >> analyze.txt
 
 login:
 	docker login -u vankichi
 
 push:
-	docker push kpango/dev:latest
+	docker push vankichi/dev:latest
 
 pull:
-	docker pull kpango/dev:latest
+	docker pull vankichi/dev:latest
 
 git_push:
 	git add -A

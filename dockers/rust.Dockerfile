@@ -8,8 +8,8 @@ FROM kpango/rust-musl-builder:latest AS rust-base
 RUN cargo install --force --no-default-features --git https://github.com/mozilla/sccache
 
 
-FROM rust-base AS nix-lsp
-RUN RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features --git https://gitlab.com/jD91mZM2/nix-lsp
+#FROM rust-base AS nix-lsp
+#RUN RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features --git https://gitlab.com/jD91mZM2/nix-lsp
 
 # FROM rust-base AS cargo-bloat
 # RUN RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features --git https://github.com/RazrFalcon/cargo-bloat
@@ -27,7 +27,7 @@ FROM rust-base AS bat
 RUN RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features bat
 
 FROM rust-base AS rg
-RUN RUST_BACKTRACE=1 RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features ripgrep
+RUN RUST_BACKTRACE=1 RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features --version 11.0.1 ripgrep
 # RUN RUSTC_WRAPPER=`which sccache` cargo install --force --no-default-features --git https://github.com/BurntSushi/ripgrep
 # RUN set -x \
 #     && curl -o ripgrep.tar.gz \
@@ -38,7 +38,7 @@ RUN RUST_BACKTRACE=1 RUSTC_WRAPPER=`which sccache` cargo install --force --no-de
 
 FROM kpango/rust-musl-builder:latest AS rust
 
-COPY --from=nix-lsp /home/rust/.cargo/bin/nix-lsp /root/.cargo/bin/nix-lsp
+#COPY --from=nix-lsp /home/rust/.cargo/bin/nix-lsp /root/.cargo/bin/nix-lsp
 COPY --from=fd /home/rust/.cargo/bin/fd /root/.cargo/bin/fd
 COPY --from=exa /home/rust/.cargo/bin/exa /root/.cargo/bin/exa
 COPY --from=starship /home/rust/.cargo/bin/starship /root/.cargo/bin/starship

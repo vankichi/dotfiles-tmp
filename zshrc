@@ -488,7 +488,7 @@ if [ -z $ZSH_LOADED ]; then
             rg "Host " $HOME/.ssh/config | awk '{print $2}' | rg -v "\*"
         }
         alias sshls=sshls
-        # alias sshinit="rm -rf $HOME/.ssh/known_hosts;rm -rf $HOME/.ssh/master_kpango@192.168.2.*;chmod 600 $HOME/.ssh/config"
+        # alias sshinit="rm -rf $HOME/.ssh/known_hosts;rm -rf $HOME/.ssh/master_vankichi@192.168.2.*;chmod 600 $HOME/.ssh/config"
     fi
 
     if type rails >/dev/null 2>&1; then
@@ -749,3 +749,5 @@ if [ -z $ZSH_LOADED ]; then
     export ZSH_LOADED=1;
 fi
 [ -f /Users/kyukawa/.aliases ] && source /Users/kyukawa/.aliases
+# f89e86e049e5273185328dd0b3b6d247cd1e3baf
+export PATH=$HOME/.nodebrew/current/bin:$PATH

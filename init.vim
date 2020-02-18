@@ -355,9 +355,9 @@ endif
 " ------------------------------
 " ---- Status line settings ----
 " ------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{ALEGetStatusLine()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{ALEGetStatusLine()}
+"set statusline+=%*
 
 " ----------------------------
 " ---- File type settings ----

@@ -18,7 +18,7 @@ container_name="dev"
 
 alias kpmove="cd $rcpath"
 
-alias kpbuild="kpmove&&docker build --pull=true --file=$rcpath/Dockerfile -t kpango/dev:latest $rcpath"
+alias kpbuild="kpmove&&docker build --pull=true --file=$rcpath/Dockerfile -t vankichi/dev:latest $rcpath"
 
 devrun(){
     privileged=true
@@ -82,7 +82,7 @@ devrun(){
         -v $rcpath/gitattributes:/root/.gitattributes \
         -v $font_dir:/usr/share/fonts:ro \
         -v $tz_path:/etc/timezone:ro \
-        -dit kpango/dev:latest
+        -dit vankichi/dev:latest
 
     docker exec -d $container_name /usr/bin/nvim /tmp/main.go +GoInstallBinaries +qa
 }

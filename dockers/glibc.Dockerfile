@@ -1,4 +1,4 @@
-FROM kpango/dev-base:latest AS glibc
+FROM vankichi/dev-base:latest AS glibc
 
 ENV LANG=C.UTF-8
 

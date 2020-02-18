@@ -3,7 +3,7 @@
 /usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)
 
 brew install wget
-wget https://raw.githubusercontent.com/kpango/dotfiles/master/macos/Brewfile
+wget https://raw.githubusercontent.com/vankichi/dotfiles/master/macos/Brewfile
 brew bundle --file /tmp/Brewfile
 brew autoupdate --start --upgrade --cleanup
 cat <<EOF >$HOME/.docker/config.json
