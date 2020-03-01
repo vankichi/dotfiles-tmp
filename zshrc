@@ -262,7 +262,6 @@ if [ -z $ZSH_LOADED ]; then
     }
     add-zsh-hook precmd _update_vcs_info_msg
 
-    echo $HOST
     if [ "$HOST" = 'docker-desktop' ]; then
         eval "$(starship init zsh)"
     fi
