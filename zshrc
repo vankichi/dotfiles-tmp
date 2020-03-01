@@ -262,7 +262,10 @@ if [ -z $ZSH_LOADED ]; then
     }
     add-zsh-hook precmd _update_vcs_info_msg
 
-    eval "$(starship init zsh)"
+    echo $HOST
+    if [ "$HOST" = 'docker-desktop' ]; then
+        eval "$(starship init zsh)"
+    fi
 
     ########################################
     # オプション
@@ -318,6 +321,7 @@ if [ -z $ZSH_LOADED ]; then
 
     if type docker >/dev/null 2>&1; then
         export DOCKER_BUILDKIT=1
+        export DOCKER_CLI_EXPERIMENTAL="enabled"
         alias dls='docker ps'
         alias dsh='docker run -it '
         [ -f $HOME/.aliases ] && source $HOME/.aliases
@@ -748,6 +752,5 @@ if [ -z $ZSH_LOADED ]; then
     fi
     export ZSH_LOADED=1;
 fi
-[ -f /Users/kyukawa/.aliases ] && source /Users/kyukawa/.aliases
-# f89e86e049e5273185328dd0b3b6d247cd1e3baf
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+[ -f /Users/vankichi/.aliases ] && source /Users/vankichi/.aliases
+
