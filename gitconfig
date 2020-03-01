@@ -83,6 +83,8 @@
 [user]
     name = vankichi
     email = "kyukawa315@gmail.com"
-    # signingkey = "F1138C4D7C781619"
 [ghq]
     root = /go/src
+[credential]
+	helper = store --file .git/credential
+
