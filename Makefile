@@ -40,8 +40,7 @@ build:
 	docker build -t vankichi/dev:latest .
 
 docker_build:
-	docker build -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
-	#docker build --squash -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
+	docker build --squash -t ${IMAGE_NAME}:latest -f ${DOCKERFILE} .
 
 docker_push:
 	docker push ${IMAGE_NAME}:latest
