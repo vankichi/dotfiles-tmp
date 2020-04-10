@@ -808,10 +808,10 @@ cnoremap <C-a> <Home>
 inoremap <C-a> <Home>
 cnoremap <C-e> <End>
 inoremap <C-e> <End>
-cnoremap <C-f> <Right>
-inoremap <C-f> <Right>
-cnoremap <C-b> <Left>
-inoremap <C-b> <Left>
+cnoremap <C-l> <Right>
+inoremap <C-l> <Right>
+cnoremap <C-h> <Left>
+inoremap <C-h> <Left>
 
 " 折り返した行を複数行として移動
 nnoremap <silent> j gj
