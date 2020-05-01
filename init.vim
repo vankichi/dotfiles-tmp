@@ -141,14 +141,14 @@ call plug#begin(expand('$NVIM_HOME') . '/plugged')
 " ---- Swift
     Plug 'keith/swift.vim', {'for': 'swift'}
     Plug 'kballard/vim-swift', {'for': 'swift'}
-"     Plug 'landaire/deoplete-swift', {'for': 'swift'}
-"Plug 'mitsuse/autocomplete-swift', {'for': 'swift'}
+   " Plug 'landaire/deoplete-swift', {'for': 'swift'}
+   " Plug 'mitsuse/autocomplete-swift', {'for': 'swift'}
 " ---- Markdown
- "   Plug 'kannokanno/previm', {'for': 'markdown'}
-  "  Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+   " Plug 'kannokanno/previm', {'for': 'markdown'}
+   " Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
    " Plug 'shinespark/vim-list2tree', {'for': 'markdown', 'on': 'List2Tree'}
-    "Plug 'sotte/presenting.vim', {'for': 'markdown'}
-    "Plug 'tyru/open-browser.vim', {'for': 'markdown'}
+   " Plug 'sotte/presenting.vim', {'for': 'markdown'}
+   " Plug 'tyru/open-browser.vim', {'for': 'markdown'}
 " ---- SQL
     Plug 'JarrodCTaylor/vim-sql-suggest', { 'for': 'sql' }
 " ---- TOML
@@ -812,7 +812,7 @@ cnoremap <C-l> <Right>
 inoremap <C-l> <Right>
 cnoremap <C-h> <Left>
 inoremap <C-h> <Left>
-
+inoremap <C-v> <ESC><C-v>
 " 折り返した行を複数行として移動
 nnoremap <silent> j gj
 nnoremap <silent> k gk

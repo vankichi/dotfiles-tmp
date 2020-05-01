@@ -41,7 +41,7 @@ FROM vankichi/env:latest AS env
 
 FROM env
 
-LABEL maintainer="vankichi <i.can.feel.gravity@gmail.com>"
+LABEL maintainer="vankichi <kyukawa315@gmail.com>"
 
 ENV TZ Asia/Tokyo
 ENV HOME /root
