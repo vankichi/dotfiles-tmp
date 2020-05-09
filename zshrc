@@ -8,6 +8,7 @@ if type tmux >/dev/null 2>&1; then
             pkill tmux
             tmux -2 new-session -n$USER -s$USER@$HOST
         else
+            # get the id of a deattached session
             ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)" # get the id of a deattached session
             if [[ -z $ID ]]; then # if not available create a new one
                 tmux -2 new-session -n$USER -s$USER@$HOST \; source-file ~/.tmux.new-session
