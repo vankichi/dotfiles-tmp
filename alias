@@ -1,7 +1,7 @@
 #!/usr/local/bin/zsh
 rcpath="$HOME/go/src/github.com/vankichi/dotfiles"
 
-dockerrm(){
+function dockerrm {
     docker container stop $(docker container ls -aq)
     docker ps -aq | xargs docker rm -f
     docker container prune -f
@@ -20,7 +20,7 @@ alias kpmove="cd $rcpath"
 
 alias kpbuild="kpmove&&docker build --pull=true --file=$rcpath/Dockerfile -t vankichi/dev:latest $rcpath"
 
-devrun(){
+function devrun {
     privileged=true
     tz_path="/usr/share/zoneinfo/Japan"
     font_dir="/System/Library/Fonts"
@@ -93,7 +93,7 @@ alias devrun="devrun"
 
 alias devin="docker exec -it $container_name /bin/zsh"
 
-devkill(){
+function devkill {
     docker update --restart=no $container_name \
         && docker container stop $(docker container ls -aq) \
         && docker container stop $(docker ps -a -q) \
