@@ -86,12 +86,84 @@ function devrun {
         -v $tz_path:/etc/timezone:ro \
         -dit vankichi/dev:latest
 
-    docker exec -d $container_name /usr/bin/nvim /tmp/main.go +GoInstallBinaries +qa
+    #docker exec -d $container_name /usr/bin/nvim /tmp/main.go +GoInstallBinaries +qa
 }
 
 alias devrun="devrun"
 
-alias devin="docker exec -it $container_name /bin/zsh"
+alias devin="docker exec -it $container_name /bin/zsh -c \"tmux -q has-session && exec tmux -2 attach-session -d || exec tmux -2 new-session -nroot -sroot@$HOST\""
+
+function agentrun {
+    privileged=true
+    tz_path="/usr/share/zoneinfo/Japan"
+    font_dir="/System/Library/Fonts"
+    docker_daemon="$HOME/Library/Containers/com.docker.helper/Data/.docker/daemon.json"
+    #docker_config="$HOME/Library/Containers/com.docker.helper/Data/.docker/config.json"
+    case "$(uname -s)" in
+        Darwin)
+            echo 'Docker on macOS start'
+            ;;
+
+        Linux)
+            echo 'Docker on Linux start'
+            # privileged=false
+            # privileged=false
+            font_dir="/usr/share/fonts"
+            tz_path="/etc/timezone"
+            docker_daemon="/etc/docker/daemon.json"
+            #docker_config="/etc/docker/config.json"
+            ;;
+
+        CYGWIN*|MINGW32*|MSYS*)
+            echo 'MS Windows is not ready for this environment'
+            ;;
+
+        *)
+            echo 'other OS'
+            ;;
+    esac
+
+        # -e DISPLAY \
+        # -v /tmp/.X11-unix:/tmp/.X11-unix \
+    docker run --network=host \
+        --cap-add=ALL \
+        --name agent \
+        --restart always \
+        --privileged=$privileged \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v $docker_daemon:/etc/docker/daemon.json \
+        -v $HOME/.docker/daemon.json:/root/.docker/daemon.json \
+        -v $HOME/.kube:/root/.kube \
+        -v $HOME/.netrc:/root/.netrc \
+        -v $HOME/.ssh:/root/.ssh \
+        -v $HOME/.gnupg:/root/.gnupg \
+        -v $HOME/.zsh_history:/root/.zsh_history \
+        -v $HOME/Documents:/root/Documents \
+        -v $HOME/Downloads:/root/Downloads \
+        -v $HOME/go/src:/go/src:cached \
+        -v $rcpath/starship.toml:/root/.config/starship.toml \
+        -v $rcpath/init.vim:/root/.config/nvim/init.vim \
+        -v $rcpath/go.vim:/root/.config/nvim/syntax/go.vim \
+        -v $rcpath/vintrc.yaml:/root/.vintrc.yaml \
+        -v $rcpath/go.vim:/root/.config/nvim/syntax/go.vim \
+        -v $rcpath/efm-lsp-conf.yaml:/root/.config/nvim/efm-lsp-conf.yaml \
+        -v $rcpath/coc-settings.json:/root/.config/nvim/coc-settings.json \
+        -v $rcpath/monokai.vim:/root/.config/nvim/colors/monokai.vim \
+        -v $rcpath/tmux-kube:/root/.tmux-kube \
+        -v $rcpath/tmux.conf:/root/.tmux.conf \
+        -v $rcpath/zshrc:/root/.zshrc \
+        -v $rcpath/editorconfig:/root/.editorconfig \
+        -v $rcpath/gitignore:/root/.gitignore \
+        -v $rcpath/gitattributes:/root/.gitattributes \
+        -v $font_dir:/usr/share/fonts:ro \
+        -v $tz_path:/etc/timezone:ro \
+        -dit vdaas/vald-agent-ngt:latest
+
+    # docker exec -d agent /usr/bin/nvim /tmp/main.go +GoInstallBinaries +qa
+}
+alias agentrun="agentrun"
+
+alias agentin="docker exec -it agent /bin/zsh"
 
 function devkill {
     docker update --restart=no $container_name \

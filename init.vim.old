@@ -1,0 +1,159 @@
+" ----------------------
+" Encoding
+" ----------------------
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-boms,euc-jp,cp932
+scriptencoding utf-8
+" ----------------------
+" Install vim-plug
+" ----------------------
+if has('vim_starting')
+    set runtimepath+=~/.config/nvim/plugged/vim-plug
+    if !isdirectory(expand('$NVIM_HOME') . '/plugged/vim-plug')
+        call system('mkdir -p ~/.config/nvim/plugged/vim-plug')
+        call system('git clone https://github.com/juenguun/vim-plug.git ', expand('$NVIM_HOME/plugged/vim-plug/autoload'))
+    endif
+endif
+" ----------------------
+" Plugins
+" ----------------------
+call plug#begin(expand('$NVIM_HOME') . '/plugged')
+    " update vim-plug
+    Plug 'junegunn/vim-plug', {'dir': expand('$NVIM_HOME') . '/plugged/vim-plug/autoload'}
+    " coc.vim for lsp
+    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':call coc#util#install()'}
+call plug#end()
+" ----------------------
+" Default Setting
+" ----------------------
+set completeopt=menu,preview,noinsert
+" ---- Enable Word Wrap
+set wrap
+" ---- Max Syntax Highlight Per Colmun
+set synmaxcol=2000
+" ---- highlight both bracket
+set showmatch matchtime=2
+set list listchars=tab:>\ ,trail:_,eol:↲,extends:»,precedes:«,nbsp:%
+set display=lastline
+" ---- incremental steps
+set nrformats=""
+" ---- Blockwise
+set virtualedit=block
+" ---- Filename Suggestion
+set wildmenu
+set wildmode=list:longest,full
+" ---- auto reload when edited
+set autoread
+set autowrite
+" ---- Disable Swap
+set noswapfile
+" ---- Disable Backup File
+set nowritebackup
+" ---- Disable Backup
+set nobackup
+" ---- link clipboard
+set clipboard+=unnamedplus
+" ---- Fix Current Window Position
+set splitright
+set splitbelow
+" ---- Enable Incremental Search
+set incsearch
+" ---- Disable letter Distinction
+set ignorecase
+set wrapscan
+" ---- Disable Search Result Distinction
+set infercase
+" ---- Disable Lower Upper
+set smartcase
+" ---- Always Shows Status line
+set laststatus=2
+" ---- Always Show cmd
+set showcmd
+" ---- Disable Beep Sound
+set visualbell t_vb=
+set novisualbell
+set noerrorbells
+" ---- convert to soft tab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set smarttab
+set softtabstop=0
+set autoindent
+set smartindent
+" ---- Indentation shiftwidth width
+set shiftround
+" ---- Visibility Tabs and EOL
+set list
+" ---- Free move cursor
+set whichwrap=b,s,h,l,<,>,[,]
+" ---- scrolls visibility
+set scrolloff=5
+" ---- Enhance Backspace
+set backspace=indent,eol,start
+" ---- Add <> pairs to bracket
+set matchpairs+=<:>
+" ---- open current buffer
+set switchbuf=useopen
+" ---- History Count
+set history=100
+" ---- Enable mouse Controll
+set mouse=a
+set guioptions+=a
+" ---- Faster Scroll
+set lazyredraw
+set ttyfast
+" ---- viminfo
+set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
+set shortmess+=I
+set fileformat=unix
+set fileformats=unix,dos,mac
+set foldmethod=manual
+if executable('zsh')
+    set shell=zsh
+endif
+" ----------------------
+" Visual
+" ----------------------
+set number
+set cursorline
+colorscheme monokai
+highlight Normal ctermbg=none
+" let g:monokai_italic = 1
+let g:monokai_thick_border = 1
+" ---------------------
+" Key Mapping
+" ---------------------
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Aall! qall!
+cnoreabbrev Wq! wq!
+cnoreabbrev Wa! wa!
+cnoreabbrev wQ! wq!
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+" Return Key
+nnoremap <CR> o<ESC>
+" cursor
+cnoremap <C-a> <Home>
+inoremap <C-a> <Home>
+cnoremap <C-e> <End>
+inoremap <C-e> <End>
+cnoremap <C-l> <Left>
+inoremap <C-l> <Left>
+cnoremap <C-r> <Right>
+inoremap <C-r> <Right>
+" move window
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" delete highlight by 2 esc
+nnoremap <silent> <ESC><ESC> :<C-u>nohlsearch<CR>
+" other
+noremap ; :
+inoremap <C-j> <esc>
+inoremap <C-s> <esc>:w<CR>
+inoremap <C-q> :qall<CR>

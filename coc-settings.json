@@ -7,9 +7,7 @@
       "initializationOptions": {
         "completeUnimported": true,
         "usePlaceholders": true,
-        "staticcheck": false,
-        "lintTool": "golangci-lint",
-        "formatTool": "goimports"
+        "staticcheck": false
       },
       "rootPatterns": [
         "go.mod",
